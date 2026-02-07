@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clawdbot VPS セットアップガイド</title>
+  <title>OpenClaw VPS セットアップガイド</title>
   <style>
     :root {
       --bg: #0f1117;
@@ -471,14 +471,14 @@
 <!-- Sidebar -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <h2>Clawdbot Guide</h2>
+    <h2>OpenClaw Guide</h2>
     <span>VPS Setup for AI Thursday</span>
   </div>
   <nav>
     <a href="#overview"><span class="num">0</span>全体像</a>
     <a href="#step1"><span class="num">1</span>VPSを借りる</a>
     <a href="#step2"><span class="num">2</span>Node.js</a>
-    <a href="#step3"><span class="num">3</span>Clawdbot</a>
+    <a href="#step3"><span class="num">3</span>OpenClaw</a>
     <a href="#step4"><span class="num">4</span>APIキー設定</a>
     <a href="#step5"><span class="num">5</span>Discord Bot</a>
     <a href="#step6"><span class="num">6</span>Discord接続</a>
@@ -495,8 +495,8 @@
 
   <!-- Hero -->
   <div class="hero" id="overview">
-    <h1>Clawdbot VPS セットアップガイド</h1>
-    <p>VPS上でClawdbotを動かし、Discordから24時間AIボットを使えるようにする手順書</p>
+    <h1>OpenClaw VPS セットアップガイド</h1>
+    <p>VPS上でOpenClawを動かし、Discordから24時間AIボットを使えるようにする手順書</p>
     <div class="badge-row">
       <span class="badge purple">AI木曜会向け</span>
       <span class="badge green">XServer VPS 対応</span>
@@ -513,7 +513,7 @@
       <div class="arch-node discord">&#x1F4AC; Discord サーバー</div>
       <div class="arch-arrow">&#x25BC; Bot Token</div>
       <div class="arch-node vps">&#x1F5A5; VPS (24時間稼働)</div>
-      <div class="arch-node sub">Clawdbot Gateway &rarr; AI モデル (Gemini等) + スキル</div>
+      <div class="arch-node sub">OpenClaw Gateway &rarr; AI モデル (Gemini等) + スキル</div>
     </div>
   </div>
 
@@ -521,7 +521,7 @@
   <div class="steps">
     <div class="step">1. VPS契約</div>
     <div class="step">2. Node.js</div>
-    <div class="step">3. Clawdbot</div>
+    <div class="step">3. OpenClaw</div>
     <div class="step">4. APIキー</div>
     <div class="step">5. Discord Bot</div>
     <div class="step">6. 接続</div>
@@ -607,23 +607,23 @@
       <span class="label">ローカルPC</span>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
       <pre><code><span class="comment"># SSH鍵を生成（まだ鍵がない場合）</span>
-<span class="cmd">ssh-keygen</span> <span class="flag">-t</span> ed25519 <span class="flag">-f</span> ~/.ssh/vps_clawdbot <span class="flag">-C</span> <span class="string">"clawdbot-vps"</span>
+<span class="cmd">ssh-keygen</span> <span class="flag">-t</span> ed25519 <span class="flag">-f</span> ~/.ssh/vps_openclaw <span class="flag">-C</span> <span class="string">"openclaw-vps"</span>
 <span class="comment"># パスフレーズは空でもOK（Enter 2回）</span>
 
 <span class="comment"># 公開鍵をVPSに送信</span>
-<span class="cmd">ssh-copy-id</span> <span class="flag">-i</span> ~/.ssh/vps_clawdbot.pub root@あなたのIPアドレス</code></pre>
+<span class="cmd">ssh-copy-id</span> <span class="flag">-i</span> ~/.ssh/vps_openclaw.pub root@あなたのIPアドレス</code></pre>
     </div>
 
     <p><strong>SSH接続を楽にする（~/.ssh/config に追記）:</strong></p>
     <div class="code-block">
       <span class="label">~/.ssh/config</span>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-      <pre><code>Host clawdbot-vps
+      <pre><code>Host openclaw-vps
     HostName あなたのIPアドレス
     User root
-    IdentityFile ~/.ssh/vps_clawdbot</code></pre>
+    IdentityFile ~/.ssh/vps_openclaw</code></pre>
     </div>
-    <p>これで今後は <code>ssh clawdbot-vps</code> だけで接続できます。</p>
+    <p>これで今後は <code>ssh openclaw-vps</code> だけで接続できます。</p>
 
     <h4>1-5. サーバーの初期設定</h4>
     <p>VPSにSSHで入った状態で:</p>
@@ -670,18 +670,13 @@
   <!-- STEP 3 -->
   <!-- ============================================ -->
   <section id="step3">
-    <h2><span class="step-num">3</span>Clawdbot をインストール</h2>
+    <h2><span class="step-num">3</span>OpenClaw をインストール</h2>
 
     <div class="code-block">
       <span class="label">VPS</span>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
       <pre><code><span class="comment"># ワンライナーインストール</span>
 <span class="cmd">curl</span> <span class="flag">-fsSL</span> https://openclaw.ai/install.sh | <span class="cmd">bash</span></code></pre>
-    </div>
-
-    <div class="callout info">
-      <strong>リブランドについて</strong>
-      Clawdbot は最近 <strong>OpenClaw</strong> にリブランドされました。コマンドは <code>openclaw</code> ですが、機能は同じです。
     </div>
 
     <p>インストール後、対話型セットアップウィザードが起動します。ここでは一旦 <code>Ctrl+C</code> でスキップしてOK。</p>
@@ -719,7 +714,7 @@
       <div class="caption">Google AI Studio の APIキー管理画面。「APIキーを作成」ボタンからキーを生成します。</div>
     </div>
 
-    <h3>4-2. Clawdbot にAPIキーを登録</h3>
+    <h3>4-2. OpenClaw にAPIキーを登録</h3>
     <div class="code-block">
       <span class="label">VPS</span>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -762,7 +757,7 @@
     <h3>5-1. Discord Developer Portal でBotを作る</h3>
     <ol>
       <li><a href="https://discord.com/developers/applications" target="_blank">Discord Developer Portal</a> にアクセス</li>
-      <li>「New Application」→ 名前を入力（例: <code>MyClawd</code>）→ Create</li>
+      <li>「New Application」→ 名前を入力（例: <code>MyOpenClaw</code>）→ Create</li>
       <li>左メニュー「Bot」→「Add Bot」</li>
       <li><strong>Bot Token</strong> をコピー（Reset Token → コピー）</li>
     </ol>
@@ -817,7 +812,7 @@
   <!-- STEP 6 -->
   <!-- ============================================ -->
   <section id="step6">
-    <h2><span class="step-num">6</span>Clawdbot に Discord を接続</h2>
+    <h2><span class="step-num">6</span>OpenClaw に Discord を接続</h2>
 
     <h3>6-1. Bot Token を設定</h3>
     <div class="code-block">
@@ -861,7 +856,7 @@
   <!-- ============================================ -->
   <section id="step7">
     <h2><span class="step-num">7</span>24時間稼働の設定 (systemd)</h2>
-    <p>VPSを再起動してもClawdbotが自動で立ち上がるようにします。</p>
+    <p>VPSを再起動してもOpenClawが自動で立ち上がるようにします。</p>
 
     <h3>7-1. systemd サービスファイルを作成</h3>
     <div class="code-block">
@@ -869,9 +864,9 @@
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
       <pre><code><span class="cmd">mkdir</span> <span class="flag">-p</span> ~/.config/systemd/user
 
-<span class="cmd">cat</span> > ~/.config/systemd/user/clawdbot-gateway.service &lt;&lt; <span class="string">'EOF'</span>
+<span class="cmd">cat</span> > ~/.config/systemd/user/openclaw-gateway.service &lt;&lt; <span class="string">'EOF'</span>
 [Unit]
-Description=Clawdbot Gateway
+Description=OpenClaw Gateway
 After=network-online.target
 Wants=network-online.target
 
@@ -901,11 +896,11 @@ WantedBy=default.target
 
 <span class="comment"># サービス登録・起動</span>
 <span class="cmd">systemctl</span> <span class="flag">--user</span> daemon-reload
-<span class="cmd">systemctl</span> <span class="flag">--user</span> enable clawdbot-gateway.service
-<span class="cmd">systemctl</span> <span class="flag">--user</span> start clawdbot-gateway.service
+<span class="cmd">systemctl</span> <span class="flag">--user</span> enable openclaw-gateway.service
+<span class="cmd">systemctl</span> <span class="flag">--user</span> start openclaw-gateway.service
 
 <span class="comment"># 状態確認</span>
-<span class="cmd">systemctl</span> <span class="flag">--user</span> status clawdbot-gateway.service</code></pre>
+<span class="cmd">systemctl</span> <span class="flag">--user</span> status openclaw-gateway.service</code></pre>
     </div>
     <p><code>active (running)</code> と表示されればOK。</p>
 
@@ -913,7 +908,7 @@ WantedBy=default.target
     <div class="code-block">
       <span class="label">VPS</span>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-      <pre><code><span class="cmd">journalctl</span> <span class="flag">--user</span> <span class="flag">-u</span> clawdbot-gateway.service <span class="flag">-f</span></code></pre>
+      <pre><code><span class="cmd">journalctl</span> <span class="flag">--user</span> <span class="flag">-u</span> openclaw-gateway.service <span class="flag">-f</span></code></pre>
     </div>
   </section>
 
@@ -954,7 +949,7 @@ WantedBy=default.target
     <table>
       <thead><tr><th>症状</th><th>原因</th><th>対処</th></tr></thead>
       <tbody>
-        <tr><td>Bot がオンラインにならない</td><td>Gateway が起動していない</td><td><code>systemctl --user status clawdbot-gateway.service</code></td></tr>
+        <tr><td>Bot がオンラインにならない</td><td>Gateway が起動していない</td><td><code>systemctl --user status openclaw-gateway.service</code></td></tr>
         <tr><td>メンションしても無反応</td><td>Message Content Intent が無効</td><td>Developer Portal → Bot → Intents を確認</td></tr>
         <tr><td>"Used disallowed intents"</td><td>必要な Intent が未有効</td><td>Message Content Intent を ON → Gateway 再起動</td></tr>
         <tr><td>API エラー</td><td>APIキーが無効 or 残高不足</td><td><code>openclaw config get auth.profiles</code></td></tr>
@@ -974,7 +969,7 @@ WantedBy=default.target
 <span class="cmd">openclaw gateway</span> <span class="flag">--force</span>
 
 <span class="comment"># ログをリアルタイムで見る</span>
-<span class="cmd">journalctl</span> <span class="flag">--user</span> <span class="flag">-u</span> clawdbot-gateway.service <span class="flag">-f</span>
+<span class="cmd">journalctl</span> <span class="flag">--user</span> <span class="flag">-u</span> openclaw-gateway.service <span class="flag">-f</span>
 
 <span class="comment"># スキル一覧を確認</span>
 <span class="cmd">openclaw skills list</span></code></pre>
@@ -1041,7 +1036,7 @@ WantedBy=default.target
       <span class="label">ローカルPC</span>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
       <pre><code><span class="comment"># ローカルPCで実行</span>
-<span class="cmd">ssh</span> <span class="flag">-N -L</span> 18789:127.0.0.1:18789 clawdbot-vps
+<span class="cmd">ssh</span> <span class="flag">-N -L</span> 18789:127.0.0.1:18789 openclaw-vps
 
 <span class="comment"># ブラウザで http://127.0.0.1:18789/ を開く</span></code></pre>
     </div>
@@ -1061,7 +1056,7 @@ WantedBy=default.target
   </section>
 
   <footer>
-    <p>Clawdbot VPS Setup Guide &mdash; AI木曜会 &mdash; 2026-02-07</p>
+    <p>OpenClaw VPS Setup Guide &mdash; AI木曜会 &mdash; 2026-02-07</p>
     <p style="margin-top: 8px;">質問があれば AI木曜会の Discord で聞いてください！</p>
   </footer>
 
