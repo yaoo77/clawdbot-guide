@@ -413,6 +413,28 @@
     .steps .step.done { border-color: var(--green); color: var(--green); }
     .steps .step.current { border-color: var(--accent); color: var(--accent-light); }
 
+    /* ── Screenshots ── */
+    .screenshot {
+      margin: 20px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .screenshot img {
+      width: 100%;
+      display: block;
+    }
+
+    .screenshot .caption {
+      padding: 8px 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--bg-code);
+      border-top: 1px solid var(--border);
+    }
+
     /* ── Footer ── */
     footer {
       margin-top: 64px;
@@ -692,6 +714,11 @@
       <li>キーをコピー（<code>AIza...</code> で始まる文字列）</li>
     </ol>
 
+    <div class="screenshot">
+      <img src="img/google-ai-studio-apikey.gif" alt="Google AI Studio APIキー画面" loading="lazy">
+      <div class="caption">Google AI Studio の APIキー管理画面。「APIキーを作成」ボタンからキーを生成します。</div>
+    </div>
+
     <h3>4-2. Clawdbot にAPIキーを登録</h3>
     <div class="code-block">
       <span class="label">VPS</span>
@@ -753,6 +780,11 @@
     </ul>
     <p>「Save Changes」を忘れずに。</p>
 
+    <div class="screenshot">
+      <img src="img/discord-intents.gif" alt="Discord Privileged Gateway Intents 設定画面" loading="lazy">
+      <div class="caption">Bot ページの Privileged Gateway Intents。Message Content Intent を必ず ON にします。</div>
+    </div>
+
     <h3>5-3. Bot をサーバーに招待</h3>
     <ol>
       <li>左メニュー「OAuth2」→「URL Generator」</li>
@@ -774,6 +806,11 @@
       </li>
       <li>生成されたURLをコピー → ブラウザで開く → サーバーを選択 → 認証</li>
     </ol>
+
+    <div class="screenshot">
+      <img src="img/discord-oauth2-scopes.gif" alt="Discord OAuth2 URL Generator 設定画面" loading="lazy">
+      <div class="caption">OAuth2 URL Generator。bot と applications.commands にチェックを入れます。</div>
+    </div>
   </section>
 
   <!-- ============================================ -->
